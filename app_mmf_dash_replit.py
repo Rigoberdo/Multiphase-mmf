@@ -10,7 +10,7 @@ common_btn = {"height": "40px", "width": "130px"}
 app = Dash(__name__,
            suppress_callback_exceptions=True,
            external_stylesheets=[dbc.themes.BOOTSTRAP])
-
+server = app.server
 app.layout = dbc.Container([
     html.H3("F.m.m. e armoniche in avvolgimento multifase"),
     # PRIMA RIGA DI INPUT
@@ -226,5 +226,7 @@ def download_harm(_, data, fname):
                                sep="\t", index=False, header=True)
 
 
+#if __name__ == "__main__":
+#    app.run(debug=True)
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run_server(host="0.0.0.0", port=int(os.environ.get("PORT", 8050)), debug=False)
