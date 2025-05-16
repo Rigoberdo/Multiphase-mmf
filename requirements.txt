@@ -3,5 +3,7 @@ dash-bootstrap-components
 plotly
 numpy
 pandas
-gunicorn
+matplotlib
+Pillow
 imageio
+gunicorn
