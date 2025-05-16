@@ -73,27 +73,25 @@ app.layout = dbc.Container([
 # --- 1) GENERA DATI, genera GIF e abilita Download + Play/Stop
 @app.callback(
     Output("stored-data",       "data"),
+    Output("btn-play",          "disabled"),
+    Output("btn-stop",          "disabled"),
     Output("btn-download-nc",   "disabled"),
     Output("btn-download-harm", "disabled"),
-    Output("interval",          "disabled"),
-    Output("anim-img",          "src"),
     Input("btn-generate",       "n_clicks"),
     State("input-q",            "value"),
     State("input-p",            "value"),
     State("input-m",            "value"),
     State("input-r",            "value"),
-    State("input-ampfili",      "value"),
     State("input-karm",         "value"),
     State("input-nsamp",        "value"),
     State("input-step_deg",     "value"),
+    State("input-ampfili",      "value"),
     prevent_initial_call=True
 )
-def generate_data(nc, Q, p, m, r, ampfili, karm, nsamp, step_deg):
-    # calcolo omega per 1 periodo
+def generate_data(nc, Q, p, m, r, karm, nsamp, step_deg, ampfili):
     omega = np.arange(0, 2*np.pi+1e-9, np.radians(step_deg))
-    theta, mmf, Nc, harm, omega = compute_mmf(
-        ampfili, Q, p, r, m, omega, karm=karm, nsamp=nsamp
-    )
+    theta, mmf, Nc, harm, omega = compute_mmf(ampfili, Q, p, r, m, omega,
+    karm=karm, nsamp=nsamp)
     # salvataggio frame in GIF
     frames = []
     for idx in range(len(omega)):
@@ -123,7 +121,6 @@ def generate_data(nc, Q, p, m, r, ampfili, karm, nsamp, step_deg):
     Output("interval", "disabled"),
     Output("btn-play", "disabled"),
     Output("btn-stop", "disabled"),
-    Input("btn-generate", "n_clicks"),
     Input("btn-play",     "n_clicks"),
     Input("btn-stop",     "n_clicks"),
     State("interval",     "disabled"),
