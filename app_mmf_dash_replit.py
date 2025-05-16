@@ -253,6 +253,6 @@ def download_harm(_, data):
                                filename="harmonics.tsv",
                                sep="\t", index=False, header=True)
 
-
+server = app.server
 if __name__ == "__main__":
     app.run(debug=True)
