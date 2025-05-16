@@ -6,7 +6,12 @@ from dash import Dash, dcc, html, Input, Output, State, callback_context
 import dash_bootstrap_components as dbc
 import pandas as pd
 from flask import send_file
+import plotly.graph_objs as go
 from step_mmf_py import compute_mmf, compute_frame_harm, compute_ph_sig
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ANIM_PATH = os.path.join(BASE_DIR, "animation.gif")
 
 common_btn = {"height": "40px", "width": "130px"}
 
